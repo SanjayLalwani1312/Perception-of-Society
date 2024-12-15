@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perception of society by Sanjay Lalwani</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .button-row {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .label {
+            margin-right: 20px;
+            font-size: 18px;
+        }
+        .toggle-button {
+            width: 60px;
+            height: 30px;
+            background-color: #ccc;
+            border: none;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .toggle-button::before {
+            content: "";
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background-color: white;
+            border-radius: 50%;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s;
+        }
+        .toggle-button.on {
+            background-color: #4CAF50;
+        }
+        .toggle-button.on::before {
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Perception of society by Sanjay Lalwani</h1>
+    <div class="button-container">
+        <div class="button-row">
+            <span class="label">Virgin</span>
+            <button id="button1" class="toggle-button"></button>
+        </div>
+        <div class="button-row">
+            <span class="label">Dahez</span>
+            <button id="button2" class="toggle-button"></button>
+        </div>
+        <div class="button-row">
+            <span class="label">Beautiful</span>
+            <button id="button3" class="toggle-button"></button>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.toggle-button');
+        const selectedButtons = new Set();
+
+        // Pre-select two buttons
+        const preSelectedButtons = [buttons[0], buttons[1]];
+        preSelectedButtons.forEach(button => {
+            selectedButtons.add(button);
+            button.classList.add('on');
+        });
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (selectedButtons.has(button)) {
+                    // Deselect the button if already selected
+                    selectedButtons.delete(button);
+                    button.classList.remove('on');
+                } else {
+                    // If two buttons are already selected, remove one
+                    if (selectedButtons.size === 2) {
+                        const firstButton = selectedButtons.values().next().value;
+                        selectedButtons.delete(firstButton);
+                        firstButton.classList.remove('on');
+                    }
+
+                    // Select the current button
+                    selectedButtons.add(button);
+                    button.classList.add('on');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
